@@ -28,13 +28,11 @@ public class HibernateUtils {
                 .addAnnotatedClass(Survey.class)
                 .setProperty("hibernate.dialect", "org.hibernate.community.dialect.SQLiteDialect")
                 .setProperty("hibernate.connection.driver_class", "org.sqlite.JDBC")
-                .setProperty("hibernate.connection.url", "jdbc:sqlite:C:CarbonDB.sqlite")
+                .setProperty("hibernate.connection.url", "jdbc:sqlite:C:\\Users\\flore\\IdeaProjects\\CarbonBack\\FBackEnd\\CarbonDB.sqlite")
                 .setProperty("hibernate.show_sql", "true")
                 .setProperty("hibernate.format_sql", "true")
-                .setProperty("spring.jpa.hibernate.ddl-auto", "true")
-                .setProperty("spring.jpa.properties.hibernate.dialect=org.hibernate.community.dialect.SQLiteDialect", "true")
-                .setProperty("spring.jpa.properties.hibernate.show_sql", "true")
-                .setProperty("spring.jpa.properties.hibernate.format_sql", "true");
+                .setProperty("hibernate.hbm2ddl.auto", "update"); // This can be update or validate or create depending on your needs
+
         sessionFactory = configuration.buildSessionFactory();
         return sessionFactory;
     }

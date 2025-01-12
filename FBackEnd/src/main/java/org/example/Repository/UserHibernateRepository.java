@@ -26,23 +26,9 @@ public class UserHibernateRepository implements UserRepository {
     // Method to add a User to the database
     @Override
     public void add(User user) {
-        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
-            try {
-                session.beginTransaction();
-                if (session.contains(user)) {
-                    session.persist(user);
-                } else {
-                    session.merge(user);
-                }
-                session.getTransaction().commit();
-            } catch (Exception e) {
-                session.getTransaction().rollback();
-                e.printStackTrace();
-            }
-            finally {
-                session.close();
-            }
-        }
+        HibernateUtils.getSessionFactory().inTransaction(session ->{
+            session.merge(user);
+        });
     }
 
     // Method to get all Users from the database
@@ -75,4 +61,16 @@ public class UserHibernateRepository implements UserRepository {
                     .getSingleResultOrNull();  // Return the found User or null if not found
         }
     }
+    @Override
+    public int incrementId() {
+        // Open a session to interact with the database
+        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+            // Retrieve the maximum ID from the User table
+            Integer maxId = (Integer) session.createQuery("select max(id) from User")
+                    .getSingleResult();
+            // If no records exist, return 1 (assuming ID starts at 1)
+            return (maxId == null) ? 1 : maxId + 1;
+        }
+    }
+
 }

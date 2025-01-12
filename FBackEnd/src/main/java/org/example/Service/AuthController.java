@@ -34,7 +34,7 @@ public class AuthController {
         if (userRepository.getByUsername(registerRequest.getUsername()) != null) {
             return ResponseEntity.status(409).body("{\"status\":\"Username already exists\"}");
         }
-        User user = new User(0, registerRequest.getUsername(), registerRequest.getPassword());
+        User user = new User(userRepository.incrementId(), registerRequest.getUsername(), registerRequest.getPassword(), registerRequest.getEmail());
         userRepository.add(user);
         return ResponseEntity.ok("{\"status\":\"ok\"}");
     }

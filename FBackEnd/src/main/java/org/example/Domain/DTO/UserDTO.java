@@ -3,12 +3,12 @@ package org.example.Domain.DTO;
 public class UserDTO {
     private String username;
     private String password;
-    private String fullname;
+    private String email;
 
-    public UserDTO( String username, String password, String fullname) {
+    public UserDTO( String username, String password, String email) {
         this.username = username;
         this.password = password;
-        this.fullname = fullname;
+        this.email = email;
     }
 
 
@@ -16,7 +16,7 @@ public class UserDTO {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setEmail(String username) {
         this.username = username;
     }
 
@@ -28,11 +28,8 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
 }

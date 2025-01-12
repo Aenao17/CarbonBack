@@ -1,6 +1,7 @@
 package org.example.Domain;
 
 import jakarta.persistence.*;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 /**
  * Entity representing a user in the system.
@@ -9,13 +10,11 @@ import jakarta.persistence.*;
 @Table(name = "Users")
 public class User implements Entity<Integer> {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "username")
     private String username;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -28,6 +27,7 @@ public class User implements Entity<Integer> {
         this.id = 0;
         this.username = "default";
         this.password = "default";
+        this.email = "default";
     }
 
     /**
@@ -37,10 +37,17 @@ public class User implements Entity<Integer> {
      * @param username the user's username
      * @param password the user's password
      */
-    public User(Integer id, String username, String password) {
+    public User(Integer id, String username, String password, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.email = email;
+    }
+
+    public User( String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
     }
 
     /**
@@ -49,6 +56,8 @@ public class User implements Entity<Integer> {
      * @return the user ID
      */
     @Override
+    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -59,8 +68,17 @@ public class User implements Entity<Integer> {
      * @param id the ID to set
      */
     @Override
+
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    @Column(name = "email")
+    public String getEmail() {
+        return email;
     }
 
     /**
@@ -68,6 +86,7 @@ public class User implements Entity<Integer> {
      *
      * @return the username
      */
+    @Column(name = "username")
     public String getUsername() {
         return username;
     }
